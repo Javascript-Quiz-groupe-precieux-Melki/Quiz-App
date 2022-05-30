@@ -282,6 +282,7 @@ function timeWidthFunction () {
 
 function giveStyleWhenSelected (element) {
     buttonNext.disabled=false;
+    buttonNext.style.cursor="pointer";
     buttonNext.style.backgroundColor="#028A3D";
     for (let i=0; i<choicesTable.length; i++) {
         if (choicesTable[i].id==element.id) element.style.border="1px solid #028A3D";
@@ -295,6 +296,7 @@ let inputChoice2;
 let inputChoice3;
 let inputChoice4;
 function displayQuestionAndChoice () {
+    buttonNext.style.cursor="not-allowed";
     buttonNext.disabled=true;
     buttonNext.style.backgroundColor="rgba(2, 138, 61, 0.42)";
     time=60;
@@ -357,8 +359,8 @@ function validate(input1, input2, error1, error2) {
         gamer.email=input2.value;
         home.style.display="none";
         divQuestions.style.display="block";
-        let x=setInterval(() => countDown(), 1000);
-        let y=setInterval(() => timeWidthFunction(), 10);
+        let setIntervalOfTimer=setInterval(() => countDown(), 1000);
+        let setIntervalOfProgressBar=setInterval(() => timeWidthFunction(), 10);
         displayQuestionAndChoice ();
     } 
 }
