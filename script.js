@@ -1,21 +1,18 @@
 let gamer={nom: "", email:""};
 let score=0;
 let form=document.querySelector("form");
-let home=document.querySelector(".home-page");
-let inputName=document.querySelector("#home-page__input-name");
-let inputEmail=document.querySelector("#home-page__input-email");
-let mainPage=document.querySelector("main");
+let homePage=document.querySelector(".home-page");
+let homePageInputName=document.querySelector("#home-page__input-name");
+let homePageInputEmail=document.querySelector("#home-page__input-email");
+let main=document.querySelector("main");
 
 let resultPage=document.createElement("div");
 resultPage.classList.add("result-page");
-mainPage.appendChild(resultPage);
-
-
-
+main.appendChild(resultPage);
 
 let questionPage=document.createElement("div");
 questionPage.classList.add("question-page");
-mainPage.appendChild(questionPage);
+main.appendChild(questionPage);
 
 let questionParagraph = document.createElement("p");
 questionParagraph.classList.add("question-page__question");
@@ -42,36 +39,21 @@ questionPageProgressBar.appendChild(progressBarGauge);
 let questionPageChoiceList=document.createElement("div");
 questionPageChoiceList.classList.add("question-page__choice-list");
 questionPage.appendChild(questionPageChoiceList);
- 
-// TODO CREATE ALL CHOICE ELEMENT WITH A LOOP
-// CHOICE 1
-let choice1=document.createElement("label");
-choice1.classList.add("choice-list__element","choice1");
-choice1.innerHTML='<input type="radio" id="choice1" name="choice" value="choice1">.ts';
-choice1.setAttribute("id","label1");
-questionPageChoiceList.appendChild(choice1);
 
-// CHOICE 2
-let choice2=document.createElement("label");
-choice2.classList.add("choice-list__element","choice2");
-choice2.innerHTML='<input type="radio" id="choice2" name="choice" value="choice2">.ts';
-choice2.setAttribute("id","label2");
-questionPageChoiceList.appendChild(choice2);
+let choicesTable=[];
 
-// CHOICE 3
-let choice3=document.createElement("label");
+function createChoiceListElements () {
+    for (let i=0; i<4; i++) {
+        let choice =document.createElement("label");
+        choice.classList.add("choice-list__element","choice1");
+        choice.innerHTML=`<input type="radio" id="choice${i+1}" name="choice" value"choice${i+1}">.ts`
+        choice.setAttribute("id",`label${i+1}`);
+        choicesTable.push(choice);
+        questionPageChoiceList.appendChild(choicesTable[i]);
+    }    
+}
 
-choice3.classList.add("choice-list__element","choice3");
-choice3.innerHTML='<input type="radio" id="choice3" name="choice" value="choice3">.ts';
-choice3.setAttribute("id","label3");
-questionPageChoiceList.appendChild(choice3);
-
-// CHOICE 4
-let choice4=document.createElement("label");
-choice4.classList.add("choice-list__element","choice4");
-choice4.innerHTML='<input type="radio" id="choice4" name="choice" value="choice4">.ts';
-choice4.setAttribute("id","label4");
-questionPageChoiceList.appendChild(choice4);
+createChoiceListElements();
 
 let questionPageButtons=document.createElement("div");
 questionPageButtons.classList.add("question-page__buttons");
@@ -95,7 +77,6 @@ let resultPageGamerEmail=document.createElement("p");
 resultPageGamerEmail.classList.add("result-page__gamer-email");
 resultPage.appendChild(resultPageGamerEmail);
 
-
 // TODO SET UP THE BEST ICONS ON RESULT PAGE 
 
 let resultPageIconSuccess=document.createElement("i");
@@ -114,157 +95,123 @@ let buttonHome=document.createElement("button");
 buttonHome.classList.add("button-home","style-of-button");
 resultPage.appendChild(buttonHome);
 
-
-
 let homePageForgetName=document.querySelector(".home-page__forget-name");
 let homePageForgetEmail=document.querySelector(".home-page__forget-email");
 let index=0;
 
-// QUESTIONS
 let question_1={
     question: "Quel est le type d'un fichier JS ?",
-    proposition_1: ".ts",
-    proposition_2: ".jsx",
-    proposition_3: ".js",
-    proposition_4: ".j",
-    trueAnswer:".js"
+    trueAnswer:".js",
+    propositions: [".ts",".jsx", ".js",".j"]
 };
 
 let question_2={
     question: "Qu’est-ce que JavaScript ?",
-    proposition_1: "Un langage issu de Java",
-    proposition_2: "Un langage de script",
-    proposition_3: "Un enfant de Java",
-    proposition_4: "Un jeu vidéo",
-    trueAnswer:"Un langage de script"
+    trueAnswer:"Un langage de script",
+    propositions: ["Un langage issu de Java","Un langage de script","Un enfant de Java","Un jeu vidéo"] 
 };
 
 let question_3={
     question: "Il y a un intrus. Lequel ?",
-    proposition_1: "String",
-    proposition_2: "Number",
-    proposition_3: "Boolean",
-    proposition_4: "Decimal",
-    trueAnswer:"Decimal"
+    trueAnswer:"Decimal",
+    propositions: ["String","Number","Boolean","Decimal"]
 };
 
 let question_4={
     question: "JavaScript est un langage sensible :",
-    proposition_1: "à la classe",
-    proposition_2: "à la crasse",
-    proposition_3: "à la casse",
-    proposition_4: "ABR",
-    trueAnswer:"à la casse"
+    trueAnswer:"à la casse",
+    propositions: ["à la classe","à la crasse","à la casse","ABR",] 
 };
 
 let question_5={
     question: "Si l'argument est un nombre, que renvoie la fonction isNaN ?",
-    proposition_1: "True",
-    proposition_2: "False",
-    proposition_3: "Undefined",
-    proposition_4: "ABR",
-    trueAnswer:"True"
+    trueAnswer:"True",
+    propositions:["True","False","Undefined","ABR"]
 };
 
 let question_6={
     question: "Quelle est la manière de mettre des commentaires en JavaScript ?",
-    proposition_1: "//Commentaires",
-    proposition_2: "<--! Commentaires-->",
-    proposition_3: "(Commentaires)",
-    proposition_4: "ABR",
-    trueAnswer:"//Commentaires"
+    trueAnswer:"//Commentaires",
+    propositions: ["//Commentaires", "<--! Commentaires-->", "(Commentaires)", "ABR"]
 };
 
 let question_7={
     question: "L'opérateur d'égalité ( == )",
-    proposition_1: "permet d'affecter une valeur",
-    proposition_2: "renforce la sécurité",
-    proposition_3: "compare deux opérandes, puis renvoie un booléen",
-    proposition_4: "ABR",
-    trueAnswer:"compare deux opérandes, puis renvoie un booléen"
+    trueAnswer:"compare deux opérandes, puis renvoie un booléen",
+    propositions: ["permet d'affecter une valeur", "renforce la sécurité", "compare deux opérandes, puis renvoie un booléen", "ABR"]
 };
 
 let question_8={
     question: "L'opérateur d'égalité ( = )",
-    proposition_1: "permet d'affecter une valeur.",
-    proposition_2: "renforce la sécurité.",
-    proposition_3: "compare deux opérandes, puis renvoie un booléen.",
-    proposition_4: "ABR",
-    trueAnswer:"permet d'affecter une valeur."
+    trueAnswer:"permet d'affecter une valeur.",
+    propositions: ["permet d'affecter une valeur.", "renforce la sécurité.", "compare deux opérandes, puis renvoie un booléen.", "ABR"]
 };
 
 let question_9={
     question: "jour = [lundi, mardi, mercredi]. Comment accéder à \"lundi\" ?",
-    proposition_1: "jour[lundi]",
-    proposition_2: "jour[1]",
-    proposition_3: "jour[0]",
-    proposition_4: "ABR",
-    trueAnswer:"jour[0]"
+    trueAnswer:"jour[0]",
+    propositions: ["jour[lundi]", "jour[1]", "jour[0]", "ABR"]
 };
 
 let question_10={
     question: "Quel est le symbole de l'opérateur logique OU ?",
-    proposition_1: "OU",
-    proposition_2: "^",
-    proposition_3: "||",
-    proposition_4: "ABR",
-    trueAnswer:"||"
+    trueAnswer:"||",
+    propositions: ["OU", "^", "||", "ABR"]
 };
 
 let question_11={
     question: "Quel est le symbole de l'opérateur logique ET ?",
-    proposition_1: "&&",
-    proposition_2: "^",
-    proposition_3: "++",
-    proposition_4: "ABR",
-    trueAnswer:"&&"
+    trueAnswer:"&&",
+    propositions: ["&&", "^", "++", "ABR"]
 };
 
 let question_12={
     question: "i++ correspond à :",
-    proposition_1: "i=i+1",
-    proposition_2: "i=1",
-    proposition_3: "i=iii",
-    proposition_4: "ABR",
-    trueAnswer:"i=i+1"
+    trueAnswer:"i=i+1",
+    propositions: ["i=i+1", "i=1", "i=iii", "ABR"]
 };
 
 let question_13={
     question: "i-- correspond à :",
-    proposition_1: "i=--",
-    proposition_2: "i=i-1",
-    proposition_3: "i=-iii",
-    proposition_4: "ABR",
-    trueAnswer:"i=i-1"
+    trueAnswer:"i=i-1",
+    propositions: ["i=--", "i=i-1", "i=-iii", "ABR"]
 };
 
 let question_14={
     question: "Comment créer une variable en JavaScript ?",
-    proposition_1: "dim maVariable;",
-    proposition_2: "create maVariable;",
-    proposition_3: "print maVariable;",
-    proposition_4: "let maVariable;",
-    trueAnswer:"let maVariable;"
+    trueAnswer:"let maVariable;",
+    propositions: ["dim maVariable;", "create maVariable;", "print maVariable;", "let maVariable;"]
 };
 
 let question_15={
     question: "let kda=[2020, 2021, 2022]; Que va retourner l'instruction \"kda.length\" ?",
-    proposition_1: "3",
-    proposition_2: "trois",
-    proposition_3: "2",
-    proposition_4: "deux",
-    trueAnswer:"3"
+    trueAnswer:"3",
+    propositions: ["3", "trois", "2", "deux"]
 };
 
 let listOfQuestions = [question_1, question_2, question_3, question_4, question_5, question_6,
     question_7, question_8,question_9,question_10,question_11,question_12, question_13,question_14,
     question_15];
+
 let time=60;
 let timeWidth=100;
 let realTime=60;
 
 
 // MY FUNCTIONS
+function giveStyleToElementSelected () {
+for (let i=0; i<choicesTable.length; i++) choicesTable[i].addEventListener("click", function (){ giveStyleWhenSelected(choicesTable[i])});
+}
+
+function giveStyleWhenSelected (element) {
+    buttonNext.disabled=false;
+    buttonNext.style.backgroundColor="#028A3D";
+    for (let i=0; i<choicesTable.length; i++) {
+        if (choicesTable[i].id==element.id) element.style.border="1px solid #028A3D";
+        else choicesTable[i].style.border="1px solid #DDDDDD";
+    }
+}
+
 function countDown(){
     if (time==0) {
         buttonNext.disabled=false;
@@ -282,20 +229,7 @@ function timeWidthFunction () {
     else progressBarGauge.style.backgroundColor="#028A3D";
 }
 
-function giveStyleWhenSelected (element) {
-    buttonNext.disabled=false;
-    buttonNext.style.backgroundColor="#028A3D";
-    for (let i=0; i<choicesTable.length; i++) {
-        if (choicesTable[i].id==element.id) element.style.border="1px solid #028A3D";
-        else choicesTable[i].style.border="1px solid #DDDDDD";
-    }
-}
-
-let choicesTable = [choice1,choice2,choice3,choice4];
-let inputChoice1;
-let inputChoice2;
-let inputChoice3;
-let inputChoice4;
+let inputChoiceTable=[];
 function displayQuestionAndChoice () {
     buttonNext.disabled=true;
     buttonNext.style.backgroundColor="rgba(2, 138, 61, 0.42)";
@@ -305,26 +239,22 @@ function displayQuestionAndChoice () {
     questionParagraph.textContent=listOfQuestions[index].question;
     questionPageNumber.textContent="Question "+(index+1) +"/"+listOfQuestions.length;
 
-    for (let i=0; i<choicesTable.length; i++) choicesTable[i].style.border="1px solid #DDDDDD";
-    choice1.innerHTML=`<input type="radio" id="choice1" name="choice" value="${listOfQuestions[index].proposition_1}">${listOfQuestions[index].proposition_1}`;
-    choice2.innerHTML=`<input type="radio" id="choice2" name="choice" value="${listOfQuestions[index].proposition_2}">${listOfQuestions[index].proposition_2}`;
-    choice3.innerHTML=`<input type="radio" id="choice3" name="choice" value="${listOfQuestions[index].proposition_3}">${listOfQuestions[index].proposition_3}`;
-    choice4.innerHTML=`<input type="radio" id="choice4" name="choice" value="${listOfQuestions[index].proposition_4}">${listOfQuestions[index].proposition_4}`;
+    for (let i=0; i<choicesTable.length; i++) {
+        choicesTable[i].style.border="1px solid #DDDDDD";
+        choicesTable[i].innerHTML=`<input type="radio" id="choice${i+1}" name="choice" value="${listOfQuestions[index].propositions[i]}">${listOfQuestions[index].propositions[i]}`
+    }
 
-    inputChoice1=document.querySelector("#choice1");
-    inputChoice2=document.querySelector("#choice2");
-    inputChoice3=document.querySelector("#choice3");
-    inputChoice4=document.querySelector("#choice4");
+    for (let i=0; i<choicesTable.length; i++) {
+        let input=document.querySelector(`#choice${i+1}`);
+        inputChoiceTable.push(input);
+    }
 }
+
 function ckeckTheChoice () {
-    if  (inputChoice1.checked==true && inputChoice1.value==listOfQuestions[index].trueAnswer) score+=1;
-    else if  (inputChoice2.checked==true && inputChoice2.value==listOfQuestions[index].trueAnswer) score+=1;
-    else if  (inputChoice3.checked==true && inputChoice3.value==listOfQuestions[index].trueAnswer) score+=1;
-    else if  (inputChoice4.checked==true && inputChoice4.value==listOfQuestions[index].trueAnswer) score+=1;   
-    inputChoice1.checked=false;
-    inputChoice2.checked=false;
-    inputChoice3.checked=false;
-    inputChoice4.checked=false;
+    for (let i=0; i<choicesTable.length; i++) {
+        if  (choicesTable[i].children[0].checked==true && choicesTable[i].children[0].value==listOfQuestions[index].trueAnswer) score+=1;
+        choicesTable[i].children[0].checked=false;
+    }
 }
 
 function displayResult () {
@@ -350,14 +280,13 @@ function validate(input1, input2, error1, error2) {
         }   
         if (!(masqueEmail.test(input2.value)) || input2.value=="") {
             input2.style.border="1px solid #FF3838";
-
             error2.style.display="block";
         }          
     }
     else {
         gamer.nom=input1.value;
         gamer.email=input2.value;
-        home.style.display="none";
+        homePage.style.display="none";
         questionPage.style.display="block";
         let x=setInterval(() => countDown(), 1000);
         let y=setInterval(() => timeWidthFunction(), 10);
@@ -367,7 +296,7 @@ function validate(input1, input2, error1, error2) {
 
 form.addEventListener("submit",function (event) {
     event.preventDefault();
-    validate(inputName, inputEmail, homePageForgetName, homePageForgetEmail);
+    validate(homePageInputName, homePageInputEmail, homePageForgetName, homePageForgetEmail);
 });
 buttonNext.addEventListener("click", function (event) {
     if (index<listOfQuestions.length) {
@@ -382,14 +311,23 @@ buttonNext.addEventListener("click", function (event) {
         }
     }    
 });
-buttonHome.addEventListener("click", function (event) { location.reload()});
-buttonQuit.addEventListener("click", function(event) {
+buttonHome.addEventListener("click", function () { location.reload()});
+buttonQuit.addEventListener("click", function() {
     questionPage.style.display="none";
     resultPage.style.display="flex";
     displayResult();
 })
 
-choice1.addEventListener("click", function (){ giveStyleWhenSelected(choice1)});
-choice2.addEventListener("click", function (){ giveStyleWhenSelected(choice2)});
-choice3.addEventListener("click", function (){ giveStyleWhenSelected(choice3)});
-choice4.addEventListener("click", function (){ giveStyleWhenSelected(choice4)});
+function hide (element) {
+    element.style.display="none";
+}
+
+function showWithStyleFlexbox (element) {
+    element.style.display="flex";
+}
+
+function showWithStyleBlock (element) {
+    element.style.display="flex";
+}
+
+giveStyleToElementSelected();
