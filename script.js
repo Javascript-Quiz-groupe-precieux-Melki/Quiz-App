@@ -1,121 +1,123 @@
 let gamer={nom: "", email:""};
 let score=0;
-let mainPage=document.querySelector("main");
 let form=document.querySelector("form");
-let home=document.querySelector(".home");
-let email=document.querySelector("#email");
-let nom=document.querySelector("#nom");
+let home=document.querySelector(".home-page");
+let inputName=document.querySelector("#home-page__input-name");
+let inputEmail=document.querySelector("#home-page__input-email");
+let mainPage=document.querySelector("main");
 
-// RESULT PAGE ELEMENTS
 let resultPage=document.createElement("div");
 resultPage.classList.add("result-page");
 mainPage.appendChild(resultPage);
 
-let secondTitle=document.createElement("h2");
-secondTitle.classList.add("second-title");
-resultPage.appendChild(secondTitle);
-
-let emailOfGamer=document.createElement("p");
-emailOfGamer.classList.add("email-of-gamer");
-resultPage.appendChild(emailOfGamer);
-
-let iconeTrue=document.createElement("i");
-iconeTrue.classList.add("far", "fa-check-circle", "icone");
-resultPage.appendChild(iconeTrue);
-
-let iconeFalse=document.createElement("i");
-iconeFalse.classList.add("fa-regular", "fa-circle-xmark", "icone");
-resultPage.appendChild(iconeFalse);
-
-let scoreParagraph=document.createElement("p");
-scoreParagraph.classList.add("score");
-resultPage.appendChild(scoreParagraph);
-
-let buttonHome=document.createElement("button");
-buttonHome.classList.add("button-home","style-of-button");
-resultPage.appendChild(buttonHome);
 
 
-// SECOND PAGE : QUESTIONNARY ELEMENTS
-let divQuestions=document.createElement("div");
-divQuestions.classList.add("div-questions");
-mainPage.appendChild(divQuestions);
+
+let questionPage=document.createElement("div");
+questionPage.classList.add("question-page");
+mainPage.appendChild(questionPage);
+
 let questionParagraph = document.createElement("p");
+questionParagraph.classList.add("question-page__question");
+questionPage.appendChild(questionParagraph);
 
-questionParagraph.classList.add("question");
-divQuestions.appendChild(questionParagraph); //parent append child enfant
+let questionPageNumberAndChrono=document.createElement("div");
+questionPageNumberAndChrono.classList.add("question-page__number-and-chrono");
+let questionPageNumber=document.createElement("span");
+questionPageNumber.classList.add("question-page__number");
+questionPageNumberAndChrono.appendChild(questionPageNumber);
+let questionPageTimeInText=document.createElement("span");
+questionPageTimeInText.classList.add("question-page__time-in-text");
+questionPageNumberAndChrono.appendChild(questionPageTimeInText);
+questionPage.appendChild(questionPageNumberAndChrono);
 
-// Number of questions
-let questionChrono=document.createElement("p");
-questionChrono.classList.add("question-number-and-chrono");
-let numberOfQuestions=document.createElement("span");
-numberOfQuestions.classList.add("number-of-question");
-questionChrono.appendChild(numberOfQuestions);
-let chrono=document.createElement("span");
-chrono.classList.add("chrono");
-questionChrono.appendChild(chrono);
-divQuestions.appendChild(questionChrono);
+let questionPageProgressBar=document.createElement("div");
+questionPageProgressBar.classList.add("question-page__progress-bar");
+questionPage.appendChild(questionPageProgressBar);
 
-// Progressbar
-let progressBar=document.createElement("div");
-progressBar.classList.add("progress-bar");
-divQuestions.appendChild(progressBar);
+let progressBarGauge=document.createElement("span");
+progressBarGauge.classList.add("progress-bar__gauge");
+questionPageProgressBar.appendChild(progressBarGauge);
 
-let progressBarContained=document.createElement("span");
-progressBarContained.classList.add("progress-bar-contained");
-progressBar.appendChild(progressBarContained);
-
-// CHOICE-LIST
-let choiceList=document.createElement("div");
-choiceList.classList.add("choice-list");
-divQuestions.appendChild(choiceList);
-
+let questionPageChoiceList=document.createElement("div");
+questionPageChoiceList.classList.add("question-page__choice-list");
+questionPage.appendChild(questionPageChoiceList);
+ 
+// TODO CREATE ALL CHOICE ELEMENT WITH A LOOP
 // CHOICE 1
 let choice1=document.createElement("label");
 choice1.classList.add("choice-list__element","choice1");
 choice1.innerHTML='<input type="radio" id="choice1" name="choice" value="choice1">.ts';
 choice1.setAttribute("id","label1");
-choiceList.appendChild(choice1);
+questionPageChoiceList.appendChild(choice1);
 
 // CHOICE 2
 let choice2=document.createElement("label");
 choice2.classList.add("choice-list__element","choice2");
 choice2.innerHTML='<input type="radio" id="choice2" name="choice" value="choice2">.ts';
 choice2.setAttribute("id","label2");
-choiceList.appendChild(choice2);
+questionPageChoiceList.appendChild(choice2);
 
 // CHOICE 3
 let choice3=document.createElement("label");
+
 choice3.classList.add("choice-list__element","choice3");
 choice3.innerHTML='<input type="radio" id="choice3" name="choice" value="choice3">.ts';
 choice3.setAttribute("id","label3");
-choiceList.appendChild(choice3);
+questionPageChoiceList.appendChild(choice3);
 
 // CHOICE 4
 let choice4=document.createElement("label");
 choice4.classList.add("choice-list__element","choice4");
 choice4.innerHTML='<input type="radio" id="choice4" name="choice" value="choice4">.ts';
 choice4.setAttribute("id","label4");
-choiceList.appendChild(choice4);
+questionPageChoiceList.appendChild(choice4);
 
+let questionPageButtons=document.createElement("div");
+questionPageButtons.classList.add("question-page__buttons");
+questionPageChoiceList.appendChild(questionPageButtons);
 
-// CREATION DES BOUTONS
-let buttons=document.createElement("div");
-buttons.classList.add("buttons");
-choiceList.appendChild(buttons);
-// Creation of the buttons in the div button
 let buttonQuit=document.createElement("button");
 buttonQuit.classList.add("button-quit", "style-of-button");
 buttonQuit.textContent="Quitter";
-buttons.appendChild(buttonQuit);
+questionPageButtons.appendChild(buttonQuit);
 
 let buttonNext=document.createElement("button");
 buttonNext.classList.add("button-next", "style-of-button");
 buttonNext.textContent="Suivant";
-buttons.appendChild(buttonNext);
+questionPageButtons.appendChild(buttonNext);
 
-let forgetName=document.querySelector(".forget-name");
-let forgetEmail=document.querySelector(".forget-email");
+let resultPageGamerName=document.createElement("h2");
+resultPageGamerName.classList.add("result-page__gamer-name");
+resultPage.appendChild(resultPageGamerName);
+
+let resultPageGamerEmail=document.createElement("p");
+resultPageGamerEmail.classList.add("result-page__gamer-email");
+resultPage.appendChild(resultPageGamerEmail);
+
+
+// TODO SET UP THE BEST ICONS ON RESULT PAGE 
+
+let resultPageIconSuccess=document.createElement("i");
+resultPageIconSuccess.classList.add("far", "fa-check-circle", "result-page__icon");
+resultPage.appendChild(resultPageIconSuccess);
+
+let resultPageIconeFailed=document.createElement("i");
+resultPageIconeFailed.classList.add("fa-regular", "fa-circle-xmark", "result-page__icon");
+resultPage.appendChild(resultPageIconeFailed);
+
+let resultPageScore=document.createElement("p");
+resultPageScore.classList.add("result-page__score");
+resultPage.appendChild(resultPageScore);
+
+let buttonHome=document.createElement("button");
+buttonHome.classList.add("button-home","style-of-button");
+resultPage.appendChild(buttonHome);
+
+
+
+let homePageForgetName=document.querySelector(".home-page__forget-name");
+let homePageForgetEmail=document.querySelector(".home-page__forget-email");
 let index=0;
 
 // QUESTIONS
@@ -268,16 +270,16 @@ function countDown(){
         buttonNext.disabled=false;
         buttonNext.click();
     } else {
-        chrono.textContent=time;
+        questionPageTimeInText.textContent=time;
         time--;
     }
 }
 
 function timeWidthFunction () {
     realTime-=0.01;
-    progressBarContained.style.width=`${(100/60)*realTime}%`;
-    if (time<10) progressBarContained.style.backgroundColor="#FF3838";
-    else progressBarContained.style.backgroundColor="#028A3D";
+    progressBarGauge.style.width=`${(100/60)*realTime}%`;
+    if (time<10) progressBarGauge.style.backgroundColor="#FF3838";
+    else progressBarGauge.style.backgroundColor="#028A3D";
 }
 
 function giveStyleWhenSelected (element) {
@@ -299,9 +301,9 @@ function displayQuestionAndChoice () {
     buttonNext.style.backgroundColor="rgba(2, 138, 61, 0.42)";
     time=60;
     realTime=60;
-    chrono.textContent="60";
+    questionPageTimeInText.textContent="60";
     questionParagraph.textContent=listOfQuestions[index].question;
-    numberOfQuestions.textContent="Question "+(index+1) +"/"+listOfQuestions.length;
+    questionPageNumber.textContent="Question "+(index+1) +"/"+listOfQuestions.length;
 
     for (let i=0; i<choicesTable.length; i++) choicesTable[i].style.border="1px solid #DDDDDD";
     choice1.innerHTML=`<input type="radio" id="choice1" name="choice" value="${listOfQuestions[index].proposition_1}">${listOfQuestions[index].proposition_1}`;
@@ -326,15 +328,15 @@ function ckeckTheChoice () {
 }
 
 function displayResult () {
-    secondTitle.textContent=gamer.nom;
-    emailOfGamer.textContent=gamer.email;
+    resultPageGamerName.textContent=gamer.nom;
+    resultPageGamerEmail.textContent=gamer.email;
     if (score>(listOfQuestions.length/2)) {
-        iconeFalse.style.display="none";
+        resultPageIconeFailed.style.display="none";
     } else {
-        iconeTrue.style.display="none";
-        iconeFalse.style.color="#FF3838";
+        resultPageIconSuccess.style.display="none";
+        resultPageIconeFailed.style.color="#FF3838";
     }
-    scoreParagraph.textContent=score+"/15";
+    resultPageScore.textContent=score+"/15";
     buttonHome.textContent="Accueil";
 }
 // nom, email, forgetName, forgetEmail
@@ -356,7 +358,7 @@ function validate(input1, input2, error1, error2) {
         gamer.nom=input1.value;
         gamer.email=input2.value;
         home.style.display="none";
-        divQuestions.style.display="block";
+        questionPage.style.display="block";
         let x=setInterval(() => countDown(), 1000);
         let y=setInterval(() => timeWidthFunction(), 10);
         displayQuestionAndChoice ();
@@ -365,13 +367,13 @@ function validate(input1, input2, error1, error2) {
 
 form.addEventListener("submit",function (event) {
     event.preventDefault();
-    validate(nom, email, forgetName, forgetEmail);
+    validate(inputName, inputEmail, homePageForgetName, homePageForgetEmail);
 });
 buttonNext.addEventListener("click", function (event) {
     if (index<listOfQuestions.length) {
         ckeckTheChoice();
         if (index==listOfQuestions.length-1) {
-            divQuestions.style.display="none";
+            questionPage.style.display="none";
             resultPage.style.display="flex";
             displayResult();
         } else {
@@ -382,7 +384,7 @@ buttonNext.addEventListener("click", function (event) {
 });
 buttonHome.addEventListener("click", function (event) { location.reload()});
 buttonQuit.addEventListener("click", function(event) {
-    divQuestions.style.display="none";
+    questionPage.style.display="none";
     resultPage.style.display="flex";
     displayResult();
 })
