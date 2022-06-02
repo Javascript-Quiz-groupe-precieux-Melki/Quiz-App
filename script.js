@@ -1,32 +1,33 @@
 let gamer={nom: "", email:""};
 let score=0;
+let main=document.querySelector("main");
 let form=document.querySelector("form");
+
 let homePage=document.querySelector(".home-page");
 let homePageInputName=document.querySelector("#home-page__input-name");
 let homePageInputEmail=document.querySelector("#home-page__input-email");
-let main=document.querySelector("main");
-
-let resultPage=document.createElement("div");
-resultPage.classList.add("result-page");
-main.appendChild(resultPage);
+let homePageForgetName=document.querySelector(".home-page__forget-name");
+let homePageForgetEmail=document.querySelector(".home-page__forget-email");
 
 let questionPage=document.createElement("div");
 questionPage.classList.add("question-page");
 main.appendChild(questionPage);
 
-let questionParagraph = document.createElement("p");
-questionParagraph.classList.add("question-page__question");
-questionPage.appendChild(questionParagraph);
+let questionPageQuestion = document.createElement("p");
+questionPageQuestion.classList.add("question-page__question");
+questionPage.appendChild(questionPageQuestion);
 
 let questionPageNumberAndChrono=document.createElement("div");
 questionPageNumberAndChrono.classList.add("question-page__number-and-chrono");
+questionPage.appendChild(questionPageNumberAndChrono);
+
 let questionPageNumber=document.createElement("span");
 questionPageNumber.classList.add("question-page__number");
 questionPageNumberAndChrono.appendChild(questionPageNumber);
+
 let questionPageTimeInText=document.createElement("span");
 questionPageTimeInText.classList.add("question-page__time-in-text");
 questionPageNumberAndChrono.appendChild(questionPageTimeInText);
-questionPage.appendChild(questionPageNumberAndChrono);
 
 let questionPageProgressBar=document.createElement("div");
 questionPageProgressBar.classList.add("question-page__progress-bar");
@@ -40,19 +41,7 @@ let questionPageChoiceList=document.createElement("div");
 questionPageChoiceList.classList.add("question-page__choice-list");
 questionPage.appendChild(questionPageChoiceList);
 
-let choicesTable=[];
-
-function createChoiceListElements () {
-    for (let i=0; i<4; i++) {
-        let choice =document.createElement("label");
-        choice.classList.add("choice-list__element","choice1");
-        choice.innerHTML=`<input type="radio" id="choice${i+1}" name="choice" value"choice${i+1}">.ts`
-        choice.setAttribute("id",`label${i+1}`);
-        choicesTable.push(choice);
-        questionPageChoiceList.appendChild(choicesTable[i]);
-    }    
-}
-
+let choicesListTable=[];
 createChoiceListElements();
 
 let questionPageButtons=document.createElement("div");
@@ -69,6 +58,10 @@ buttonNext.classList.add("button-next", "style-of-button");
 buttonNext.textContent="Suivant";
 questionPageButtons.appendChild(buttonNext);
 
+let resultPage=document.createElement("div");
+resultPage.classList.add("result-page");
+main.appendChild(resultPage);
+
 let resultPageGamerName=document.createElement("h2");
 resultPageGamerName.classList.add("result-page__gamer-name");
 resultPage.appendChild(resultPageGamerName);
@@ -76,8 +69,6 @@ resultPage.appendChild(resultPageGamerName);
 let resultPageGamerEmail=document.createElement("p");
 resultPageGamerEmail.classList.add("result-page__gamer-email");
 resultPage.appendChild(resultPageGamerEmail);
-
-// TODO SET UP THE BEST ICONS ON RESULT PAGE 
 
 let resultPageIconSuccess=document.createElement("i");
 resultPageIconSuccess.classList.add("far", "fa-check-circle", "result-page__icon");
@@ -95,8 +86,6 @@ let buttonHome=document.createElement("button");
 buttonHome.classList.add("button-home","style-of-button");
 resultPage.appendChild(buttonHome);
 
-let homePageForgetName=document.querySelector(".home-page__forget-name");
-let homePageForgetEmail=document.querySelector(".home-page__forget-email");
 let index=0;
 
 let question_1={
@@ -194,110 +183,16 @@ let listOfQuestions = [question_1, question_2, question_3, question_4, question_
     question_15];
 
 let time=60;
-let timeWidth=100;
-let realTime=60;
-
-
-// MY FUNCTIONS
-function giveStyleToElementSelected () {
-for (let i=0; i<choicesTable.length; i++) choicesTable[i].addEventListener("click", function (){ giveStyleWhenSelected(choicesTable[i])});
-}
-
-function giveStyleWhenSelected (element) {
-    buttonNext.disabled=false;
-    buttonNext.style.backgroundColor="#028A3D";
-    for (let i=0; i<choicesTable.length; i++) {
-        if (choicesTable[i].id==element.id) element.style.border="1px solid #028A3D";
-        else choicesTable[i].style.border="1px solid #DDDDDD";
-    }
-}
-
-function countDown(){
-    if (time==0) {
-        buttonNext.disabled=false;
-        buttonNext.click();
-    } else {
-        questionPageTimeInText.textContent=time;
-        time--;
-    }
-}
-
-function timeWidthFunction () {
-    realTime-=0.01;
-    progressBarGauge.style.width=`${(100/60)*realTime}%`;
-    if (time<10) progressBarGauge.style.backgroundColor="#FF3838";
-    else progressBarGauge.style.backgroundColor="#028A3D";
-}
-
-let inputChoiceTable=[];
-function displayQuestionAndChoice () {
-    buttonNext.disabled=true;
-    buttonNext.style.backgroundColor="rgba(2, 138, 61, 0.42)";
-    time=60;
-    realTime=60;
-    questionPageTimeInText.textContent="60";
-    questionParagraph.textContent=listOfQuestions[index].question;
-    questionPageNumber.textContent="Question "+(index+1) +"/"+listOfQuestions.length;
-
-    for (let i=0; i<choicesTable.length; i++) {
-        choicesTable[i].style.border="1px solid #DDDDDD";
-        choicesTable[i].innerHTML=`<input type="radio" id="choice${i+1}" name="choice" value="${listOfQuestions[index].propositions[i]}">${listOfQuestions[index].propositions[i]}`
-    }
-
-    for (let i=0; i<choicesTable.length; i++) {
-        let input=document.querySelector(`#choice${i+1}`);
-        inputChoiceTable.push(input);
-    }
-}
-
-function ckeckTheChoice () {
-    for (let i=0; i<choicesTable.length; i++) {
-        if  (choicesTable[i].children[0].checked==true && choicesTable[i].children[0].value==listOfQuestions[index].trueAnswer) score+=1;
-        choicesTable[i].children[0].checked=false;
-    }
-}
-
-function displayResult () {
-    resultPageGamerName.textContent=gamer.nom;
-    resultPageGamerEmail.textContent=gamer.email;
-    if (score>(listOfQuestions.length/2)) {
-        resultPageIconeFailed.style.display="none";
-    } else {
-        resultPageIconSuccess.style.display="none";
-        resultPageIconeFailed.style.color="#FF3838";
-    }
-    resultPageScore.textContent=score+"/15";
-    buttonHome.textContent="Accueil";
-}
-// nom, email, forgetName, forgetEmail
-function validate(input1, input2, error1, error2) {
-    let masque = /\s/g; // Caractères blancs
-    let masqueEmail = /(@[a-z]+.com)$/;
-    if (masque.test(input1.value) || input1.value=="" || !(masqueEmail.test(input2.value)) || input2.value=="") {
-        if (masque.test(input1.value) || input1.value=="") {
-            input1.style.border="1px solid #FF3838";
-            error1.style.display="block";
-        }   
-        if (!(masqueEmail.test(input2.value)) || input2.value=="") {
-            input2.style.border="1px solid #FF3838";
-            error2.style.display="block";
-        }          
-    }
-    else {
-        gamer.nom=input1.value;
-        gamer.email=input2.value;
-        homePage.style.display="none";
-        questionPage.style.display="block";
-        let x=setInterval(() => countDown(), 1000);
-        let y=setInterval(() => timeWidthFunction(), 10);
-        displayQuestionAndChoice ();
-    } 
-}
+let progressBarGaugeFull=100;
+let timeForProgressBarGauge=60;
 
 form.addEventListener("submit",function (event) {
     event.preventDefault();
-    validate(homePageInputName, homePageInputEmail, homePageForgetName, homePageForgetEmail);
-});
+    testInputs(homePageInputName, homePageInputEmail, homePageForgetName, homePageForgetEmail);
+})
+
+giveStyleToElementSelected();
+
 buttonNext.addEventListener("click", function (event) {
     if (index<listOfQuestions.length) {
         ckeckTheChoice();
@@ -310,24 +205,12 @@ buttonNext.addEventListener("click", function (event) {
             displayQuestionAndChoice();
         }
     }    
-});
+})
+
 buttonHome.addEventListener("click", function () { location.reload()});
+
 buttonQuit.addEventListener("click", function() {
     questionPage.style.display="none";
     resultPage.style.display="flex";
     displayResult();
 })
-
-function hide (element) {
-    element.style.display="none";
-}
-
-function showWithStyleFlexbox (element) {
-    element.style.display="flex";
-}
-
-function showWithStyleBlock (element) {
-    element.style.display="flex";
-}
-
-giveStyleToElementSelected();
