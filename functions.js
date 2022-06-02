@@ -59,6 +59,7 @@ function displayQuestionAndChoice () {
         choicesListTable[i].style.border="1px solid #DDDDDD";
         choicesListTable[i].innerHTML=`<input type="radio" id="choice${i+1}" name="choice" value="${listOfQuestions[index].propositions[i]}">${listOfQuestions[index].propositions[i]}`
     }
+    if (index==listOfQuestions.length-1) buttonNext.textContent="Terminer";
 }
 
 function displayResult () {
