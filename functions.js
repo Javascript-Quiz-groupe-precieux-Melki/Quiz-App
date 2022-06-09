@@ -78,9 +78,15 @@ function displayResult () {
 function testInputs(inputName, inputEmail, errorName, errorEmail) {
     let masque = /\s/g;
     let masqueEmail = /(@[a-z]+.com)$/;
-    if (masque.test(inputName.value) || inputName.value=="" || !(masqueEmail.test(inputEmail.value)) || inputEmail.value=="") {
-        if (masque.test(inputName.value) || inputName.value=="") {
-            showError(inputName,errorName);
+    if (masque.test(inputName.value) || inputName.value=="" || !(masqueEmail.test(inputEmail.value)) || inputEmail.value=="" || inputName.value.length<3) {
+        if (masque.test(inputName.value) || inputName.value=="" || inputName.value.length<3) {
+            if (inputName.value.length<3 && !(inputName.value=="")) {
+                errorName.textContent="Saisissez un nom de plus de trois caractères";
+                showError(inputName,errorName);
+            } else {
+                errorName.textContent="N’oubliez pas de renseigner votre nom avant de commencer le Quiz.";             
+                showError(inputName,errorName);
+            }            
         } else {
             dontShowError(inputName,errorName);
         }  
@@ -90,6 +96,7 @@ function testInputs(inputName, inputEmail, errorName, errorEmail) {
             dontShowError(inputEmail,errorEmail);
         }         
     } else {
+        
         gamer.nom=inputName.value;
         gamer.email=inputEmail.value;
         homePage.style.display="none";
@@ -109,3 +116,4 @@ function dontShowError (element, error) {
     element.style.border="1px solid #DDDDDD";
     error.style.display="none";
 }
+
