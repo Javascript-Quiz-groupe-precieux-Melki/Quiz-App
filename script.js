@@ -114,7 +114,7 @@ let question_4={
 
 let question_5={
     question: "Si l'argument est un nombre, que renvoie la fonction isNaN ?",
-    trueAnswer:"True",
+    trueAnswer:"False",
     propositions:["True","False","Undefined","ABR"]
 };
 
