@@ -199,7 +199,6 @@ cursor: pointer;
 
 .button-next {
     background-color: #028A3D;
-    cursor:pointer;
 }
 
 .button-home {
@@ -226,7 +225,7 @@ cursor: pointer;
     margin-bottom: 6%;
     width:85%;
     font-size: 1.6rem;
-    font-weight: 400;
+    font-weight: 500;
     line-height: 3.2rem;
     text-align: center;
 }
